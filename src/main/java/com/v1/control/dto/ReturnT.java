@@ -18,5 +18,31 @@ public class ReturnT<T> {
 
     private Integer code;
 
-    private Object Data;
+    private T Data;
+
+    public static ReturnT ok(){
+        return new ReturnT();
+    }
+
+    public static <T> ReturnT ok(T data){
+        return new ReturnT(data);
+    }
+
+    private ReturnT(){
+    }
+
+    private ReturnT(T data){
+        this.code = 200;
+        this.msg = "操作成功";
+        this.Data = data;
+    }
+
+    private ReturnT(String msg){
+        this.code = 500;
+        this.msg = msg;
+    }
+
+    public static ReturnT error(String message) {
+        return new ReturnT(message);
+    }
 }
