@@ -35,4 +35,12 @@ public interface UserService {
      * @return returnT
      */
     ReturnT register(UserEntity userEntity);
+
+
+    /**
+     * 根据username查询用户
+     * @param username 用户名
+     * @return UserEntity
+     */
+    UserEntity selectUserByUserName(String username);
 }

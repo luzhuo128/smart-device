@@ -21,7 +21,7 @@ public class ReturnT<T> {
     private T Data;
 
     public static ReturnT ok(){
-        return new ReturnT();
+        return new ReturnT(200);
     }
 
     public static <T> ReturnT ok(T data){
@@ -29,6 +29,12 @@ public class ReturnT<T> {
     }
 
     private ReturnT(){
+    }
+
+
+    private ReturnT(Integer code){
+        this.code = code;
+        this.msg = "操作成功";
     }
 
     private ReturnT(T data){
