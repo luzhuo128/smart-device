@@ -14,3 +14,25 @@ spring:
     time-zone: GMT+8
     serialization:
       write-dates-as-timestamps: false
+
+#by zhengkai.blog.csdn.net
+#mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+#mqtt的配置
+mqtt:
+  server:
+    url: tcp://110.42.210.108:1883
+    port: 1883
+    username: admin
+    password: public
+  client:
+    consumerId: consumerCo
+    publishId: publishCo
+  default:
+    topic: topic
+    completionTimeout: 3000
+

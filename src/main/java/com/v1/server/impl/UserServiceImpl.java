@@ -30,21 +30,24 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public ReturnT login(UserEntity userEntity) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword());
         try {
             subject.login(token);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ReturnT.error("登陆失败！");
         }
         return ReturnT.ok();
     }
 
+    @Override
     public ReturnT selectUser(Integer id) {
         return ReturnT.ok(userMapper.selectById(id));
     }
 
+    @Override
     public ReturnT register(UserEntity userEntity) {
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<UserEntity>();
         queryWrapper.eq("username", userEntity.getUsername());
@@ -55,6 +58,7 @@ public class UserServiceImpl implements UserService {
         return ReturnT.ok(userMapper.insert(userEntity));
     }
 
+    @Override
     public UserEntity selectUserByUserName(String username) {
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<UserEntity>();
         queryWrapper.eq("username", username);
