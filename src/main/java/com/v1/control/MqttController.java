@@ -1,7 +1,7 @@
 package com.v1.control;
 
-import com.v1.config.MqttConfig;
-import com.v1.config.MqttGateway;
+import com.v1.config.MqttProviderClient;
+import com.v1.control.dto.MyMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,31 +15,26 @@ import java.util.List;
 @RequestMapping("/mqtt")
 public class MqttController {
 
-    @Resource
-    private MqttGateway mqttGateway;
 
     @Resource
-    private MqttConfig mqttConfig;
+    MqttProviderClient mqttProviderClient;
 
-    @GetMapping("/add/{topic}")
-    public String addTopic(@PathVariable("topic") String topic) {
-        String[] topics = {topic};
-        List<String> list = mqttConfig.addListenTopic(topics);
-        return list.toString();
-    }
-
-    @GetMapping("/pub")
-    public String pubTopic() {
-        String topic = "temperature1";
-        String msg = "client msg at: " + String.valueOf(System.currentTimeMillis());
-        mqttGateway.sendToMqtt(topic, 2, msg);
-        return "OK";
-
-    }
-
-    @GetMapping("/del/{topic}")
-    public String delTopic(@PathVariable("topic") String topic) {
-        List<String> list = mqttConfig.removeListenTopic(topic);
-        return list.toString();
+    /**
+     * 发送消息
+     * @param qos qos
+     * @param retained retained
+     * @param topic topic
+     * @param message message
+     * @return 发送结果
+     */
+    @GetMapping("/sendMessage")
+    public String sendMessage(int qos, boolean retained, String topic, String message){
+        try {
+            mqttProviderClient.publish(qos, retained, topic, message);
+            return "发送成功";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "发送失败";
+        }
     }
 }

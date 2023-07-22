@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 public class DeviceEntity {
 
     @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     private String name;
 

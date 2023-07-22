@@ -4,6 +4,27 @@ server:
     context-path: /
 
 spring:
+  redis:
+    host: 110.42.210.108
+    port: 6379
+    database: 0
+  #MQTT配置信息
+  mqtt:
+    #MQTT服务端地址，端口默认为11883，如果有多个，用逗号隔开
+    url: tcp://110.42.210.108:1883
+    #用户名
+    username: admin
+    #密码
+    password: public
+    #客户端id（不能重复）
+    client:
+      consumer:
+        id: consumer_id
+      provider:
+        id: provider_id
+    #MQTT默认的消息推送主题，实际可在调用接口时指定
+    default:
+      topic: fb/#
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://110.42.210.108:3306/smart-device?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
@@ -25,6 +46,7 @@ mybatis-plus:
 #mqtt的配置
 mqtt:
   server:
+    qos: 0
     url: tcp://110.42.210.108:1883
     port: 1883
     username: admin
@@ -33,6 +55,6 @@ mqtt:
     consumerId: consumerCo
     publishId: publishCo
   default:
-    topic: topic
+    topic: fb/#
     completionTimeout: 3000
 

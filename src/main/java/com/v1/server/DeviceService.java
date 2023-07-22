@@ -1,5 +1,6 @@
 package com.v1.server;
 
+import com.v1.control.dto.CollectDTO;
 import com.v1.control.dto.ReturnT;
 import com.v1.entity.DeviceEntity;
 
@@ -42,4 +43,27 @@ public interface DeviceService {
      * @return ReturnT
      */
     ReturnT delete(Long id);
+
+    /**
+     * 根据EUI获取详情
+     * @param eui eui
+     * @return DeviceEntity
+     */
+    DeviceEntity details(String eui);
+
+    /**
+     * 处理采集
+     * @param eui
+     * @param collectDTO
+     */
+    void disposeCollect(String eui, CollectDTO collectDTO);
+
+    /**
+     * 查询日志
+     * @param type
+     * @return
+     */
+    ReturnT getLog(Integer type);
+
+    ReturnT disposeOnline(String eui);
 }

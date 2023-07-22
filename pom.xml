@@ -38,18 +38,52 @@
         <version>1.5.3</version>
     </dependency>
     <!-- MQTT -->
+    <!--mqtt相关依赖-->
+    <dependency>
+        <groupId>org.eclipse.paho</groupId>
+        <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+        <version>1.2.5</version>
+    </dependency>
+
+    <!--    <dependency>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-integration</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--        <groupId>org.springframework.integration</groupId>-->
+<!--        <artifactId>spring-integration-stream</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--        <groupId>org.springframework.integration</groupId>-->
+<!--        <artifactId>spring-integration-mqtt</artifactId>-->
+<!--    </dependency>-->
+    <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+    <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>2.0.36</version>
+    </dependency>
     <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-integration</artifactId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
+
+
     <dependency>
-        <groupId>org.springframework.integration</groupId>
-        <artifactId>spring-integration-stream</artifactId>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>RELEASE</version>
+        <scope>compile</scope>
     </dependency>
+
+
     <dependency>
-        <groupId>org.springframework.integration</groupId>
-        <artifactId>spring-integration-mqtt</artifactId>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <scope>compile</scope>
+        <version>2.9.7</version>
     </dependency>
+
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>

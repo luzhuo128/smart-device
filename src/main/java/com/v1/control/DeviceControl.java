@@ -44,5 +44,12 @@ public class DeviceControl {
     public ReturnT delete(@PathVariable Long id){
         return deviceService.delete(id);
     }
+
+    @GetMapping("/{type}/log")
+    public ReturnT getLog(@PathVariable Integer type){
+        return deviceService.getLog(type);
+    }
+
+
 }
 
