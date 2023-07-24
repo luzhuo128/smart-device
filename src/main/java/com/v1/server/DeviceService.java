@@ -65,5 +65,5 @@ public interface DeviceService {
      */
     ReturnT getLog(Integer type);
 
-    ReturnT disposeOnline(String eui);
+    ReturnT disposeOnline(String eui,Integer onlineFlag);
 }

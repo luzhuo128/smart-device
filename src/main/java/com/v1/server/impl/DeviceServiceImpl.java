@@ -110,17 +110,17 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public ReturnT disposeOnline(String eui) {
+    public ReturnT disposeOnline(String eui,Integer onlineFlag) {
         DeviceEntity details = this.details(eui);
         if(Objects.isNull(details)){
             return ReturnT.error("未找到设备");
         }
-        details.setOnlineFlag(1);
+        details.setOnlineFlag(onlineFlag);
         this.update(details);
         //添加采集日志
         DeviceLogEntity deviceLogEntity = new DeviceLogEntity();
         deviceLogEntity.setDeviceId(details.getId());
-        deviceLogEntity.setLogType(1);
+        deviceLogEntity.setLogType(onlineFlag);
         deviceLogEntity.setUploadTime(DateUtil.getCurrentStringTime());
         deviceLogEntity.setContent("上线");
         deviceLogService.save(deviceLogEntity);

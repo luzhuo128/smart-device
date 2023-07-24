@@ -7,6 +7,7 @@ import com.v1.entity.UserEntity;
 import com.v1.server.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -39,7 +40,9 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             return ReturnT.error("登陆失败！");
         }
-        return ReturnT.ok();
+        UserEntity returnUser = this.selectUserByUserName(token.getUsername());
+
+        return ReturnT.ok(returnUser.getId());
     }
 
     @Override
