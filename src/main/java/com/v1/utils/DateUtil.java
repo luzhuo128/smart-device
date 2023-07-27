@@ -48,6 +48,16 @@ public class DateUtil {
         return yyyyMMddHHmmss.format(new Date());
     }
 
+    /**
+     * 获得当前时间(字符串类型)
+     * 格式：2014-12-02 10:38:53
+     *
+     * @return String
+     */
+    public static String getCurrentStringTime1() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        return simpleDateFormat.format(new Date());
+    }
 
     /**
      * 获得当前时间(字符串类型)

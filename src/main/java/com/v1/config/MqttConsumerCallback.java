@@ -2,6 +2,7 @@ package com.v1.config;
 
 import com.alibaba.fastjson.JSON;
 import com.v1.control.dto.CollectDTO;
+import com.v1.control.dto.DeviceReturnDTO;
 import com.v1.server.DeviceService;
 import com.v1.server.impl.DeviceServiceImpl;
 import com.v1.utils.SpringBeanUtils;
@@ -29,37 +30,42 @@ public class MqttConsumerCallback implements MqttCallback {
      */
     @Override
     public void connectionLost(Throwable throwable) {
-        log.error("与服务器断开连接...");
+        log.error(String.valueOf(throwable));
     }
 
     /**
      * 监听消息回调
      */
     @Override
-    public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+    public void messageArrived(String topic, MqttMessage mqttMessage) {
         DeviceService deviceService = (DeviceServiceImpl) SpringBeanUtils.applicationContext.getBean("deviceServiceImpl");
         RedisTemplate<String, String> redisTemplate = (RedisTemplate<String, String>) SpringBeanUtils.applicationContext.getBean("redisTemplate");
+        MqttProviderClient mqttProviderClient = (MqttProviderClient) SpringBeanUtils.applicationContext.getBean("mqttProviderClient");
         log.info("接收消息主题：{}", topic);
         log.info("接收消息Qos：{}", mqttMessage.getQos());
         log.info("接收消息内容：{}", new String(mqttMessage.getPayload()));
         log.info("接收消息retained：{}", mqttMessage.isRetained());
         try {
             String[] topics = topic.split("/");
-            String eui = topics[2];
-            if ("collect".equals(topics[1])) {
+            String eui = topics[3];
+            if ("collect".equals(topics[2])) {
                 //采集
                 CollectDTO collectDTO = JSON.parseObject(new String(mqttMessage.getPayload()), CollectDTO.class);
                 deviceService.disposeCollect(eui, collectDTO);
-            } else if ("slave".equals(topics[1])) {
+            } else if ("slave".equals(topics[2])) {
+                //拿到eui 刷新redis
+                ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
+                valueOps.set(eui, eui, 50, TimeUnit.MINUTES);
                 CollectDTO collectDTO = JSON.parseObject(new String(mqttMessage.getPayload()), CollectDTO.class);
                 if (collectDTO.getCmd().equals("0000")) {
                     //上线
                     deviceService.disposeOnline(eui, 1);
                 }
-            } else if ("keeplive".equals(topics[1])) {
-                //拿到eui 刷新redis
-                ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
-                valueOps.set(eui, eui, 50, TimeUnit.MINUTES);
+                //应答设备
+                DeviceReturnDTO deviceReturnDTO = new DeviceReturnDTO();
+                deviceReturnDTO.defaultDeviceReturnDTO();
+                String str = JSON.toJSONString(deviceReturnDTO);
+                mqttProviderClient.publish(0, true, "fb/down/slave/" + eui, str);
             }
         } catch (Exception e) {
             e.printStackTrace();

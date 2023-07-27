@@ -42,6 +42,7 @@ public class DeviceEntity {
     @NotNull(message = "用户ID不能为空！")
     private Long userId;
 
+
     public void init() {
         this.onlineFlag = 0;
         this.autoWatering = "0";

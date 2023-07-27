@@ -5,9 +5,9 @@ server:
 
 spring:
   redis:
-    host: 110.42.210.108
+    host: 192.168.50.11
     port: 6379
-    database: 0
+    database: 3
   #MQTT配置信息
   mqtt:
     #MQTT服务端地址，端口默认为11883，如果有多个，用逗号隔开
@@ -24,7 +24,7 @@ spring:
         id: provider_id
     #MQTT默认的消息推送主题，实际可在调用接口时指定
     default:
-      topic: fb/#
+      topic: fb/up/#
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://110.42.210.108:3306/smart-device?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true

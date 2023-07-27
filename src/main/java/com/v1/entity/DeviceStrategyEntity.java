@@ -32,4 +32,8 @@ public class DeviceStrategyEntity {
 
     private Integer implementTime;
 
+    private String deviceType;
+
+    private Integer equipmentId;
+
 }

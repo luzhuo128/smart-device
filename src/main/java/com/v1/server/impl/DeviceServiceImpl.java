@@ -34,6 +34,10 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public ReturnT save(DeviceEntity deviceEntity) {
+        DeviceEntity details = this.details(deviceEntity.getEui());
+        if(Objects.nonNull(details)){
+            return ReturnT.error("设备已存在！");
+        }
         deviceEntity.init();
         return ReturnT.ok(deviceMapper.insert(deviceEntity));
     }
@@ -125,5 +129,11 @@ public class DeviceServiceImpl implements DeviceService {
         deviceLogEntity.setContent("上线");
         deviceLogService.save(deviceLogEntity);
         return ReturnT.ok();
+    }
+
+    @Override
+    public DeviceEntity selectById(Long deviceId) {
+
+        return deviceMapper.selectById(deviceId);
     }
 }

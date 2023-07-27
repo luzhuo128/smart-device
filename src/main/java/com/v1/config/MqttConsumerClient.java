@@ -66,7 +66,7 @@ public class MqttConsumerClient {
 
             // 配置订阅主题
             int[] qos = {1, 1, 1};
-            String[] topics = {"fb/#", "test1", "test2"};
+            String[] topics = {"fb/up/#", "test1", "test2"};
             // 执行订阅
             mqttClient.subscribe(topics, qos);
         }  catch (MqttException e) {

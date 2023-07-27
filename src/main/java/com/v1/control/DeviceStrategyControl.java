@@ -1,5 +1,6 @@
 package com.v1.control;
 
+import com.v1.control.dto.DeviceStrategyDTO;
 import com.v1.control.dto.ReturnT;
 import com.v1.entity.DeviceEntity;
 import com.v1.entity.DeviceStrategyEntity;
@@ -26,11 +27,23 @@ public class DeviceStrategyControl {
 
 
     @PostMapping
-    public ReturnT save(@RequestBody @Validated DeviceStrategyEntity deviceStrategyEntity){
-        return deviceStrategyService.save(deviceStrategyEntity);
+    public ReturnT save(@RequestBody @Validated DeviceStrategyDTO deviceStrategyDTO){
+        return deviceStrategyService.save(deviceStrategyDTO);
     }
 
+    @PutMapping
+    public ReturnT update(@RequestBody @Validated DeviceStrategyDTO deviceStrategyDTO){
+        return deviceStrategyService.update(deviceStrategyDTO);
+    }
 
+    @GetMapping("/{deviceId}")
+    public ReturnT list(@PathVariable Long deviceId){
+        return deviceStrategyService.list(deviceId);
+    }
 
+    @DeleteMapping("/{deviceId}")
+    public ReturnT delete(@PathVariable Integer deviceId){
+        return deviceStrategyService.delete(deviceId);
+    }
 }
 
