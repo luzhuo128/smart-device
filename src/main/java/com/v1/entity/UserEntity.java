@@ -29,4 +29,8 @@ public class UserEntity {
     private String img;
 
     private String gender;
+
+    private String openid;
+    private String sessionKey;
+    private String unionid;
 }

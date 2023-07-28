@@ -43,4 +43,6 @@ public interface UserService {
      * @return UserEntity
      */
     UserEntity selectUserByUserName(String username);
+
+    void update(UserEntity userEntity);
 }

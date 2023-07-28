@@ -68,5 +68,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectOne(queryWrapper);
     }
 
+    @Override
+    public void update(UserEntity userEntity) {
+        userMapper.updateById(userEntity);
+    }
+
 
 }

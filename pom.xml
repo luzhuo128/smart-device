@@ -93,12 +93,11 @@
 
 
 
-<!--    <dependency>-->
-<!--        <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--        <artifactId>jackson-databind</artifactId>-->
-<!--        <scope>compile</scope>-->
-<!--        <version>2.9.7</version>-->
-<!--    </dependency>-->
+    <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.12.0</version><!-- 使用最新版本 -->
+    </dependency>
 
     <dependency>
         <groupId>org.springframework.boot</groupId>
