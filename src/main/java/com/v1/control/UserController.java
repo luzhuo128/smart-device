@@ -12,10 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <p>
@@ -35,6 +40,7 @@ public class UserController {
 
     String AppId = "wx90cee06c8019652b";  //公众平台自己的appId
     String AppSecret = "b9203cec38f1480684452233f6d5299c";  //AppSecret
+    String ip = "110.42.210.108";
 
     @GetMapping("/vx/getPhoneNumber")
     public ReturnT wxGetPhoneNumber(@RequestParam("code") String code) {
@@ -63,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping("/vx/login")
-    public ReturnT wxLogin(@RequestParam("code") String code,String phoneNumber) {
+    public ReturnT wxLogin(@RequestParam("code") String code, String phoneNumber) {
 //        Result<Object> result = new Result();
         String url = "https://api.weixin.qq.com/sns/jscode2session?" +
                 "appid=" + AppId +
@@ -82,7 +88,7 @@ public class UserController {
         }
 
         UserEntity userEntity = userService.selectUserByUserName(phoneNumber);
-        if(Objects.nonNull(userEntity)) {
+        if (Objects.nonNull(userEntity)) {
             userEntity.setOpenid(jsonObject.getString("openid"));
             userEntity.setSessionKey(jsonObject.getString("session_key"));
             userEntity.setUnionid(jsonObject.getString("unionid"));
@@ -106,4 +112,30 @@ public class UserController {
     public ReturnT register(@RequestBody @Validated UserEntity userEntity) {
         return userService.register(userEntity);
     }
+
+    @PostMapping("/img")
+    public ReturnT register2(@RequestParam("file") MultipartFile multipartFile, Integer userId) {
+        ReturnT returnT = userService.selectUser(userId);
+        if(Objects.isNull(returnT.getData())){
+            return ReturnT.error("用户不存在！");
+        }
+        UserEntity userEntity = (UserEntity) returnT.getData();
+        System.out.println("--------------------------");
+        String path = "/usr/local/smart_device/file";
+        String suffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+        String newFileName = System.currentTimeMillis() + suffix;
+        File targetFile = new File(path, newFileName);
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+        try {
+            multipartFile.transferTo(targetFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        userEntity.setImg(ip+"/file/"+newFileName);
+        userService.update(userEntity);
+        return ReturnT.ok(userEntity);
+    }
+
 }

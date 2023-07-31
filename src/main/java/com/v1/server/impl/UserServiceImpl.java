@@ -73,5 +73,10 @@ public class UserServiceImpl implements UserService {
         userMapper.updateById(userEntity);
     }
 
+    @Override
+    public void upd(UserEntity userEntity) {
+
+    }
+
 
 }

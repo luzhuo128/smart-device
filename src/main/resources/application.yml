@@ -5,9 +5,8 @@ server:
 
 spring:
   redis:
-    host: 192.168.50.11
+    host: 127.0.0.1
     port: 6379
-    database: 3
   #MQTT配置信息
   mqtt:
     #MQTT服务端地址，端口默认为11883，如果有多个，用逗号隔开

@@ -45,4 +45,10 @@ public interface UserService {
     UserEntity selectUserByUserName(String username);
 
     void update(UserEntity userEntity);
+
+    /**
+     * 编辑用户
+     * @param userEntity
+     */
+    void upd(UserEntity userEntity);
 }
