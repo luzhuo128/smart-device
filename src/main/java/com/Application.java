@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * <p>
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @MapperScan("com.v1.dao")
+@EnableScheduling
 //@ComponentScan(basePackages = "com.v1")
 public class Application extends SpringBootServletInitializer {
 

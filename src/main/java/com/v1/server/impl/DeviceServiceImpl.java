@@ -13,6 +13,7 @@ import com.v1.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -135,5 +136,12 @@ public class DeviceServiceImpl implements DeviceService {
     public DeviceEntity selectById(Long deviceId) {
 
         return deviceMapper.selectById(deviceId);
+    }
+
+    @Override
+    public List<DeviceEntity> selectAll() {
+        QueryWrapper<DeviceEntity> queryWrapper =  new QueryWrapper<DeviceEntity>();
+        queryWrapper.eq("isDelete",0);
+        return deviceMapper.selectList(queryWrapper);
     }
 }

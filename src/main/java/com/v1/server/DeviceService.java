@@ -4,6 +4,8 @@ import com.v1.control.dto.CollectDTO;
 import com.v1.control.dto.ReturnT;
 import com.v1.entity.DeviceEntity;
 
+import java.util.List;
+
 /**
  * <p>
  *
@@ -68,4 +70,10 @@ public interface DeviceService {
     ReturnT disposeOnline(String eui,Integer onlineFlag);
 
     DeviceEntity selectById(Long deviceId);
+
+    /**
+     * 查询所有设备
+     * @return
+     */
+    List<DeviceEntity> selectAll();
 }

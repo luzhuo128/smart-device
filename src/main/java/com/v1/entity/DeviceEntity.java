@@ -42,6 +42,8 @@ public class DeviceEntity {
     @NotNull(message = "用户ID不能为空！")
     private Long userId;
 
+    private String uploadTime;
+
 
     public void init() {
         this.onlineFlag = 0;

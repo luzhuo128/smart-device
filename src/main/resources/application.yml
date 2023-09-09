@@ -10,7 +10,7 @@ spring:
   #MQTT配置信息
   mqtt:
     #MQTT服务端地址，端口默认为11883，如果有多个，用逗号隔开
-    url: tcp://110.42.210.108:1883
+    url: tcp://8.134.158.75:1883
     #用户名
     username: admin
     #密码
@@ -26,7 +26,7 @@ spring:
       topic: fb/up/#
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://110.42.210.108:3306/smart-device?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://8.134.158.75:3306/smart-device?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: Guyue123.
   jackson:
